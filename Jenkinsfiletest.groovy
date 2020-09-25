@@ -10,6 +10,9 @@ node {
         stage("Install git") {
             sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } yum install git -y"
         }       
+         stage("Copy") {
+            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } cp -r /tmp"
+        }       
         stage("Clone Repo") {
             sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } git clone https://github.com/anfederico/Flaskex "
         }
@@ -18,10 +21,10 @@ node {
             
         }
         stage("Built Application") {
-            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } pip3 install -r requirements.txt"
+            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } pip3 install -r /tmp/requirements.txt"
             
          stage("Built Application") {
-            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } python3 app.py"
+            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } python3 /tmp/app.py"
             
         }
         }
