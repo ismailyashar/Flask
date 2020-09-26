@@ -19,7 +19,7 @@ node {
             
         }
         stage("Clone Repo") {
-            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } rm -rf Flaskex && git clone https://github.com/anfederico/Flaskex "
+            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } 'rm -rf Flaskex && git clone https://github.com/anfederico/Flaskex' "
         }
         
         stage("Install pip3") {
@@ -30,7 +30,7 @@ node {
             sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } pip3 install -r  requirements.txt"
             
          stage("Built Application") {
-            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } python3  app.py"
+            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } python3  Flaskex/app.py"
             
         }
         }
