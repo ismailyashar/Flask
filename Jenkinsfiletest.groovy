@@ -21,9 +21,7 @@ node {
         stage("Clone Repo") {
             sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } rm -rf Flaskex && git clone https://github.com/anfederico/Flaskex "
         }
-        stage("Clone Repo") {
-            sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } cd /Flaskex "
-        }
+        
         stage("Install pip3") {
             sh "ssh -o StrictHostKeyChecking=no -i $SSHKEY $SSHUSERNAME@${ params.SSHNODE } yum install python3-pip -y"
             
